@@ -1,0 +1,51 @@
+﻿@model Room.Models.RoomModel
+
+@{
+    ViewBag.Title = "RoomDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>RoomDetail</h2>
+
+<div>
+    <h4>RoomModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudCapacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudCapacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExamCapacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExamCapacity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Rooms")
+</p>
