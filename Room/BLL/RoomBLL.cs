@@ -54,7 +54,7 @@ namespace Room.BLL
         public IEnumerable<RoomModel> GetRooms()
         {
             var connection = new OracleConnection(_connectionString);
-            OracleCommand cmd = new OracleCommand("select * from regist2005_new.room",connection);
+            OracleCommand cmd = new OracleCommand("select * from regist2005_new.room", connection);
             connection.Open();
             OracleDataReader reader = null;
             var Rooms = new List<RoomModel>();
