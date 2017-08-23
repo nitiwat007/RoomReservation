@@ -9,7 +9,7 @@ namespace Room.Interface
 {
     public interface IRoomBLL
     {
-        IEnumerable<RoomModel> GetRooms();
+        List<RoomModel> GetRooms();
         RoomModel GetRoomByID(string ID);
     }
 }
