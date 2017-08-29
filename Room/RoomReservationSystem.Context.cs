@@ -12,6 +12,8 @@ namespace Room
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class reservation_systemEntities : DbContext
     {
@@ -26,5 +28,14 @@ namespace Room
         }
     
         public virtual DbSet<room> rooms { get; set; }
+    
+        public virtual ObjectResult<sp_room_Result> sp_room(string pRoomId)
+        {
+            var pRoomIdParameter = pRoomId != null ?
+                new ObjectParameter("pRoomId", pRoomId) :
+                new ObjectParameter("pRoomId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_room_Result>("sp_room", pRoomIdParameter);
+        }
     }
 }

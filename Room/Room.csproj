@@ -246,6 +246,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RoomReservationSystem.edmx</DependentUpon>
     </Compile>
+    <Compile Include="sp_room_Result.cs">
+      <DependentUpon>RoomReservationSystem.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

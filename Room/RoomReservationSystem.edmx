@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="reservation_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="reservation_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="room">
           <Key>
             <PropertyRef Name="ROOM_ID" />
@@ -19,11 +19,13 @@
           <Property Name="ADMIN_ID" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="PRICE_ROOM" Type="varchar" MaxLength="6" />
         </EntityType>
+        <Function Name="sp_room" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pRoomId" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="reservation_systemModelStoreContainer">
           <EntitySet Name="room" EntityType="Self.room" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="reservation_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -43,7 +45,21 @@
         </EntityType>
         <EntityContainer Name="reservation_systemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="rooms" EntityType="Self.room" />
+          <FunctionImport Name="sp_room" ReturnType="Collection(reservation_systemModel.sp_room_Result)">
+          <Parameter Name="pRoomId" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_room_Result">
+          <Property Type="String" Name="ROOM_ID" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="ROOM_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ROOMTYPE_ID" Nullable="false" MaxLength="2" />
+          <Property Type="Int32" Name="size" Nullable="true" />
+          <Property Type="String" Name="ROOM_IMAGE" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="BUILD_ID" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="ROOM_NOTE" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ADMIN_ID" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="PRICE_ROOM" Nullable="true" MaxLength="6" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -65,6 +81,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_room" FunctionName="reservation_systemModel.Store.sp_room">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="reservation_systemModel.sp_room_Result">
+                <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+                <ScalarProperty Name="ROOM_NAME" ColumnName="ROOM_NAME" />
+                <ScalarProperty Name="ROOMTYPE_ID" ColumnName="ROOMTYPE_ID" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="ROOM_IMAGE" ColumnName="ROOM_IMAGE" />
+                <ScalarProperty Name="BUILD_ID" ColumnName="BUILD_ID" />
+                <ScalarProperty Name="ROOM_NOTE" ColumnName="ROOM_NOTE" />
+                <ScalarProperty Name="ADMIN_ID" ColumnName="ADMIN_ID" />
+                <ScalarProperty Name="PRICE_ROOM" ColumnName="PRICE_ROOM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
