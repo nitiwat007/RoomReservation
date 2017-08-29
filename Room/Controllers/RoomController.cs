@@ -11,24 +11,25 @@ namespace Room.Controllers
 {
     public class RoomController : Controller
     {
+        IRoomRepository roomRepository = new Repositories.RoomFromOracle();
         // GET: Room
         public ActionResult Index()
         {
             //var roomBLL = new RoomBLL();
-            IRoomBLL roomBLL = new RoomBLL();
+            IRoomBLL roomBLL = new RoomBLL(roomRepository);
             return View(roomBLL.GetRooms());
         }
         public ActionResult Rooms()
         {
             //var roomBLL = new RoomBLL();
-            IRoomBLL roomBLL = new RoomBLL();
+            IRoomBLL roomBLL = new RoomBLL(roomRepository);
             return View(roomBLL.GetRooms());
         }
 
         public ActionResult RoomDetail(string ID)
         {
             //var roomBLL = new RoomBLL();
-            IRoomBLL roomBLL = new RoomBLL();
+            IRoomBLL roomBLL = new RoomBLL(roomRepository);
             return View(roomBLL.GetRoomByID(ID));
         }
     }

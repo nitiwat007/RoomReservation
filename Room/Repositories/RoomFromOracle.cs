@@ -1,21 +1,20 @@
-﻿using Service_API.Interface;
-using Service_API.Models;
+﻿using Room.Interface;
 using System;
 using System.Collections.Generic;
-using System.Data.OracleClient;
 using System.Linq;
 using System.Web;
+using Room.Models;
+using System.Data.OracleClient;
 
-namespace Service_API.BLL
+namespace Room.Repositories
 {
-    public class RoomBLL : IRoomBLL
+    public class RoomFromOracle : IRoomRepository
     {
         readonly string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["regist2005_new"].ConnectionString;
         public RoomModel GetRoomByID(string ID)
         {
-
             var connection = new OracleConnection(_connectionString);
-            OracleCommand cmd = new OracleCommand(string.Format("select * from regist2005_new.room where room_id='{0}'",ID), connection);
+            OracleCommand cmd = new OracleCommand(string.Format("select * from regist2005_new.room where room_id='{0}'", ID), connection);
             connection.Open();
             OracleDataReader reader = null;
             RoomModel room = null;
@@ -51,7 +50,8 @@ namespace Service_API.BLL
 
             return room;
         }
-        public List<RoomModel> GetRooms()
+
+        public IQueryable<RoomModel> GetRooms()
         {
             var connection = new OracleConnection(_connectionString);
             OracleCommand cmd = new OracleCommand("select * from regist2005_new.room", connection);
@@ -61,7 +61,7 @@ namespace Service_API.BLL
             try
             {
                 reader = cmd.ExecuteReader();
-                
+
 
                 if (reader.HasRows)
                 {
@@ -71,7 +71,7 @@ namespace Service_API.BLL
                         room.ID = reader["ROOM_ID"].ToString();
                         room.Name = reader["ROOM_NAME"].ToString();
                         room.BuildingID = reader["BUILDING_ID"].ToString();
-                        room.StudCapacity = (reader["STUD_CAPACITY"] == null|| string.IsNullOrWhiteSpace(reader["STUD_CAPACITY"].ToString())) ? 0 : int.Parse(reader["STUD_CAPACITY"].ToString());
+                        room.StudCapacity = (reader["STUD_CAPACITY"] == null || string.IsNullOrWhiteSpace(reader["STUD_CAPACITY"].ToString())) ? 0 : int.Parse(reader["STUD_CAPACITY"].ToString());
                         room.ExamCapacity = (reader["EXAM_CAPACITY"] == null || string.IsNullOrWhiteSpace(reader["EXAM_CAPACITY"].ToString())) ? 0 : int.Parse(reader["EXAM_CAPACITY"].ToString());
                         Rooms.Add(room);
                     }
@@ -88,9 +88,7 @@ namespace Service_API.BLL
                 reader.Close();
                 connection.Close();
             }
-            
-            return Rooms;
+            return Rooms.AsQueryable();
         }
-
     }
 }

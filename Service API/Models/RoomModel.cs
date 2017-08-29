@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Room.Models
+namespace Service_API.Models
 {
     public class RoomModel
     {
