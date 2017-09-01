@@ -10,8 +10,8 @@ namespace Room.Interface
     public interface IRoomBLL
     {
         List<RoomModel> GetRooms();
-        List<RoomModel> GetRoomByWithEntityFrameWork();
+        //List<RoomModel> GetRoomByWithEntityFrameWork();
         RoomModel GetRoomByID(string ID);
-        RoomModel GetRoomByIDWithEntityFrameWork(string ID);
+        //RoomModel GetRoomByIDWithEntityFrameWork(string ID);
     }
 }
