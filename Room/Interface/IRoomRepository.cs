@@ -10,6 +10,8 @@ namespace Room.Interface
     public interface IRoomRepository
     {
         RoomModel GetRoomByID(string ID);
+        RoomModel GetRoomByIDWithEntityFrameWork(string ID);
         IQueryable<RoomModel> GetRooms();
+        IQueryable<RoomModel> GetRoomsWithEntityFrameWork();
     }
 }

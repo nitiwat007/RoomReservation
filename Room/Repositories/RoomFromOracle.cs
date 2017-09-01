@@ -10,11 +10,13 @@ namespace Room.Repositories
 {
     public class RoomFromOracle : IRoomRepository
     {
+        Room.DataSources.Oracle.RoomFromOracle db = new Room.DataSources.Oracle.RoomFromOracle();
         readonly string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["regist2005_new"].ConnectionString;
+        
         public RoomModel GetRoomByID(string ID)
         {
             var connection = new OracleConnection(_connectionString);
-            OracleCommand cmd = new OracleCommand(string.Format("select * from regist2005_new.room where room_id='{0}'", ID), connection);
+            OracleCommand cmd = new OracleCommand(string.Format("select ROOM_ID,ROOM_NAME,BUILDING_ID,STUD_CAPACITY,EXAM_CAPACITY from regist2005_new.room where room_id='{0}'", ID), connection);
             connection.Open();
             OracleDataReader reader = null;
             RoomModel room = null;
@@ -49,12 +51,14 @@ namespace Room.Repositories
             }
 
             return room;
+            //return db.ROOMs.Where(x => x.ROOM_ID == ID).Select(x => new RoomModel { ID = x.ROOM_ID, BuildingID = x.BUILDING_ID, ExamCapacity = x.EXAM_CAPACITY.Value, StudCapacity = x.STUD_CAPACITY.Value, Name = x.ROOM_NAME }).SingleOrDefault();
+
         }
 
         public IQueryable<RoomModel> GetRooms()
         {
             var connection = new OracleConnection(_connectionString);
-            OracleCommand cmd = new OracleCommand("select * from regist2005_new.room", connection);
+            OracleCommand cmd = new OracleCommand("select ROOM_ID,ROOM_NAME,BUILDING_ID,STUD_CAPACITY,EXAM_CAPACITY from regist2005_new.room", connection);
             connection.Open();
             OracleDataReader reader = null;
             var Rooms = new List<RoomModel>();
@@ -89,6 +93,16 @@ namespace Room.Repositories
                 connection.Close();
             }
             return Rooms.AsQueryable();
+            //return db.ROOMs.Select(x => new RoomModel { ID = x.ROOM_ID, BuildingID = x.BUILDING_ID, ExamCapacity = x.EXAM_CAPACITY.Value, StudCapacity = x.STUD_CAPACITY.Value, Name = x.ROOM_NAME }).AsQueryable();
+        }
+
+        public RoomModel GetRoomByIDWithEntityFrameWork(string ID)
+        {
+            return db.ROOMs.Where(x => x.ROOM_ID == ID).Select(x => new RoomModel { ID = x.ROOM_ID, BuildingID = x.BUILDING_ID, ExamCapacity = x.EXAM_CAPACITY.Value, StudCapacity = x.STUD_CAPACITY.Value, Name = x.ROOM_NAME }).SingleOrDefault();
+        }
+        public IQueryable<RoomModel> GetRoomsWithEntityFrameWork()
+        {
+            return db.ROOMs.Select(x => new RoomModel { ID = x.ROOM_ID, BuildingID = x.BUILDING_ID, ExamCapacity = x.EXAM_CAPACITY.Value, StudCapacity = x.STUD_CAPACITY.Value, Name = x.ROOM_NAME }).AsQueryable();
         }
     }
 }

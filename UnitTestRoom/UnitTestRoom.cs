@@ -62,5 +62,30 @@ namespace UnitTestRoom
             // Assert
             Assert.AreEqual("5403A", roomName);
         }
+        [TestMethod]
+        public void TestRoomBLLGetRoomByIDOracleEF()
+        {
+            // Assemble
+            RoomBLL roomBLL = new RoomBLL(roomRepositoryOracle);
+
+            // Act
+            string roomName = roomBLL.GetRoomByIDWithEntityFrameWork("05403").Name;
+
+            // Assert
+            Assert.AreEqual("5403A", roomName);
+
+        }
+        [TestMethod]
+        public void TestRoomBLLGetRoomsOracleEF()
+        {
+            // Assemble
+            RoomBLL roomBLL = new RoomBLL(roomRepositoryOracle);
+
+            // Act
+            int getRooms = roomBLL.GetRoomByWithEntityFrameWork().Count;
+
+            // Assert
+            Assert.AreNotEqual(0, getRooms);
+        }
     }
 }

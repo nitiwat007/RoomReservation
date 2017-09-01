@@ -20,6 +20,17 @@ namespace Room.BLL
         {         
             return roomRepository.GetRoomByID(ID);
         }
+
+        public RoomModel GetRoomByIDWithEntityFrameWork(string ID)
+        {
+            return roomRepository.GetRoomByIDWithEntityFrameWork(ID);
+        }
+
+        public List<RoomModel> GetRoomByWithEntityFrameWork()
+        {
+            return roomRepository.GetRoomsWithEntityFrameWork().ToList();
+        }
+
         public List<RoomModel> GetRooms()
         {
                        

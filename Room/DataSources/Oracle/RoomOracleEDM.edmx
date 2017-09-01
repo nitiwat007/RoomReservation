@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OracleModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ROOM">
+          <Key>
+            <PropertyRef Name="ROOM_ID" />
+          </Key>
+          <Property Name="ROOM_ID" Type="varchar2" MaxLength="5" Nullable="false" />
+          <Property Name="ROOM_NAME" Type="varchar2" MaxLength="20" />
+          <Property Name="STUD_CAPACITY" Type="number" Precision="3" Scale="0" />
+          <Property Name="EXAM_CAPACITY" Type="number" Precision="3" Scale="0" />
+          <Property Name="ROOM_TYPE" Type="varchar2" MaxLength="1" />
+          <Property Name="ROOM_ACCESSORY" Type="varchar2" MaxLength="200" />
+          <Property Name="BUILDING_ID" Type="varchar2" MaxLength="4" />
+        </EntityType>
+        <Function Name="SPROOM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TNITIWAT">
+          <Parameter Name="PROOMID" Type="varchar2" Mode="In" />
+        </Function>
+        <EntityContainer Name="OracleModelStoreContainer">
+          <EntitySet Name="ROOM" EntityType="Self.ROOM" Schema="REGIST2005_NEW" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OracleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ROOM">
+          <Key>
+            <PropertyRef Name="ROOM_ID" />
+          </Key>
+          <Property Name="ROOM_ID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ROOM_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STUD_CAPACITY" Type="Byte" />
+          <Property Name="EXAM_CAPACITY" Type="Byte" />
+          <Property Name="ROOM_TYPE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ROOM_ACCESSORY" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BUILDING_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="RoomFromOracle" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ROOMs" EntityType="Self.ROOM" />
+          <FunctionImport Name="SPROOM">
+            <Parameter Name="PROOMID" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OracleModelStoreContainer" CdmEntityContainer="RoomFromOracle">
+          <EntitySetMapping Name="ROOMs">
+            <EntityTypeMapping TypeName="OracleModel.ROOM">
+              <MappingFragment StoreEntitySet="ROOM">
+                <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+                <ScalarProperty Name="ROOM_NAME" ColumnName="ROOM_NAME" />
+                <ScalarProperty Name="STUD_CAPACITY" ColumnName="STUD_CAPACITY" />
+                <ScalarProperty Name="EXAM_CAPACITY" ColumnName="EXAM_CAPACITY" />
+                <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+                <ScalarProperty Name="ROOM_ACCESSORY" ColumnName="ROOM_ACCESSORY" />
+                <ScalarProperty Name="BUILDING_ID" ColumnName="BUILDING_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPROOM" FunctionName="OracleModel.Store.SPROOM" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

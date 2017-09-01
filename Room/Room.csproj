@@ -227,6 +227,24 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="DataSources\Oracle\ROOM.cs">
+      <DependentUpon>RoomOracleEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSources\Oracle\RoomOracleEDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoomOracleEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSources\Oracle\RoomOracleEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoomOracleEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataSources\Oracle\RoomOracleEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoomOracleEDM.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -266,6 +284,16 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap_cerulean.css" />
+    <Content Include="DataSources\Oracle\RoomOracleEDM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RoomOracleEDM.edmx</DependentUpon>
+      <LastGenOutput>RoomOracleEDM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataSources\Oracle\RoomOracleEDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RoomOracleEDM.edmx</DependentUpon>
+      <LastGenOutput>RoomOracleEDM.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -293,6 +321,13 @@
     </EntityDeploy>
     <Content Include="RoomReservationSystem.edmx.diagram">
       <DependentUpon>RoomReservationSystem.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="DataSources\Oracle\RoomOracleEDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RoomOracleEDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataSources\Oracle\RoomOracleEDM.edmx.diagram">
+      <DependentUpon>RoomOracleEDM.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -346,6 +381,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DataSources\SqlServer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
