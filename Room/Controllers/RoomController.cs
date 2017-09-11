@@ -11,7 +11,7 @@ namespace Room.Controllers
 {
     public class RoomController : Controller
     {
-        IRoomRepository roomRepository = new Repositories.RoomFromSqlServer();
+        IRoomRepository roomRepository = new Repositories.RoomFromOracle();
         // GET: Room
         public ActionResult Index()
         {

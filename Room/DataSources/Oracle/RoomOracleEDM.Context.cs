@@ -15,10 +15,10 @@ namespace Room.DataSources.Oracle
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class RoomFromOracle : DbContext
+    public partial class RoomReservationOracleEntities : DbContext
     {
-        public RoomFromOracle()
-            : base("name=RoomFromOracle")
+        public RoomReservationOracleEntities()
+            : base("name=RoomReservationOracleEntities")
         {
         }
     

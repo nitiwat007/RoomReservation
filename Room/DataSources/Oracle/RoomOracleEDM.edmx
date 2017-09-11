@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OracleModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RoomFromOracle.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ROOM">
           <Key>
             <PropertyRef Name="ROOM_ID" />
@@ -20,14 +20,14 @@
         <Function Name="SPROOM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="TNITIWAT">
           <Parameter Name="PROOMID" Type="varchar2" Mode="In" />
         </Function>
-        <EntityContainer Name="OracleModelStoreContainer">
+        <EntityContainer Name="RoomFromOracleStoreContainer">
           <EntitySet Name="ROOM" EntityType="Self.ROOM" Schema="REGIST2005_NEW" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="OracleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="RoomFromOracle" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ROOM">
           <Key>
             <PropertyRef Name="ROOM_ID" />
@@ -40,7 +40,7 @@
           <Property Name="ROOM_ACCESSORY" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BUILDING_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="RoomFromOracle" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RoomReservationOracleEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ROOMs" EntityType="Self.ROOM" />
           <FunctionImport Name="SPROOM">
             <Parameter Name="PROOMID" Mode="In" Type="String" />
@@ -51,9 +51,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OracleModelStoreContainer" CdmEntityContainer="RoomFromOracle">
+        <EntityContainerMapping StorageEntityContainer="RoomFromOracleStoreContainer" CdmEntityContainer="RoomReservationOracleEntities">
           <EntitySetMapping Name="ROOMs">
-            <EntityTypeMapping TypeName="OracleModel.ROOM">
+            <EntityTypeMapping TypeName="RoomFromOracle.ROOM">
               <MappingFragment StoreEntitySet="ROOM">
                 <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
                 <ScalarProperty Name="ROOM_NAME" ColumnName="ROOM_NAME" />
@@ -65,7 +65,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SPROOM" FunctionName="OracleModel.Store.SPROOM" />
+          <FunctionImportMapping FunctionImportName="SPROOM" FunctionName="RoomFromOracle.Store.SPROOM" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
